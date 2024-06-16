@@ -19,8 +19,8 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(30, 10, 'Codigo', 1, 0, 'C');
         $this->Cell(80, 10, 'Nombre Cuenta', 1, 0, 'C');
-        $this->Cell(50, 10, 'Debe', 1, 0, 'C');
-        $this->Cell(50, 10, 'Haber', 1, 1, 'C');
+        $this->Cell(40, 10, 'Debe', 1, 0, 'C');
+        $this->Cell(40, 10, 'Haber', 1, 1, 'C');
     }
 
     function Footer()
@@ -34,11 +34,11 @@ class PDF extends FPDF
     {
         $this->Ln(10);
         $this->SetFont('Arial', 'B', 10);
-        $this->Cell(160, 10, 'Total Ingresos', 1, 0, 'R');
+        $this->Cell(110, 10, 'Total Ingresos', 1, 0, 'R');
         $this->Cell(50, 10, number_format($Ingreso, 2, ',', '.'), 1, 1, 'R');
-        $this->Cell(160, 10, 'Total Egresos', 1, 0, 'R');
+        $this->Cell(110, 10, 'Total Egresos', 1, 0, 'R');
         $this->Cell(50, 10, number_format($Egreso, 2, ',', '.'), 1, 1, 'R');
-        $this->Cell(160, 10, 'Resultado del Ejercicio', 1, 0, 'R');
+        $this->Cell(110, 10, 'Resultado del Ejercicio', 1, 0, 'R');
         $this->Cell(50, 10, number_format($ER, 2, ',', '.'), 1, 1, 'R');
     }
 }
@@ -117,9 +117,9 @@ $pdf->SetFont('Arial', '', 10);
 
 foreach ($balances as $row) {
     $pdf->Cell(30, 10, $row['codigo'], 1, 0, 'C');
-    $pdf->Cell(80, 10, utf8_decode($row['nombrecuenta']), 1, 0, 'L');
-    $pdf->Cell(50, 10, number_format($row['debe'], 2, ',', '.'), 1, 0, 'R');
-    $pdf->Cell(50, 10, number_format($row['haber'], 2, ',', '.'), 1, 1, 'R');
+    $pdf->Cell(80, 10, utf8_decode($row['nombrecuenta']), 1, 0, 'C');
+    $pdf->Cell(40, 10, number_format($row['debe'], 2, ',', '.'), 1, 0, 'C');
+    $pdf->Cell(40, 10, number_format($row['haber'], 2, ',', '.'), 1, 1, 'C');
 }
 
 $pdf->TotalsTable($Ingreso, $Egreso, $ER);
