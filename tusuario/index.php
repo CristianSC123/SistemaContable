@@ -11,7 +11,7 @@
                 $sql = "SELECT * FROM tusuario";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
-                    echo "<table class='table table-striped table-bordered'>
+                    echo "<table id='usuario' class='table table-striped table-bordered'>
                     <thead class='table-dark'>
                     <tr>
                         <th>ID usuario</th>
@@ -54,3 +54,12 @@
     <?php 
     include_once("../plantilla/final.php");
 ?>
+<script>
+    $(document).ready(function() {
+        $('#usuario').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json" 
+            }
+        });
+    });
+</script>

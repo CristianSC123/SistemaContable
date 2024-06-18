@@ -13,7 +13,7 @@
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
-                echo "<table class='table table-striped table-bordered'>
+                echo "<table id='tcomprobante' class='table table-striped table-bordered'>
                 <thead class='table-dark'>
                 <tr>
                     <th>ID Comprobante</th>
@@ -59,3 +59,12 @@
     <?php 
     include_once("../plantilla/final.php");
 ?>
+<script>
+    $(document).ready(function() {
+        $('#tcomprobante').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json" 
+            }
+        });
+    });
+</script>

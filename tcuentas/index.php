@@ -13,7 +13,7 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "<table id='usuarios' class='table table-striped table-bordered  table-responsive' >
+        echo "<table id='cuentas' class='table table-striped table-bordered  table-responsive' >
         <thead class='table-dark'>
         <tr>
             <th>Código</th>
@@ -53,10 +53,19 @@
 </div>
         </div>
     </div>
-    <script>
-        	
-new DataTable('#usuarios');
-    </script>
+    
+   
+
+
     <?php 
     include_once("../plantilla/final.php");
 ?>
+<script>
+            $(document).ready(function () {
+                $('#cuentas').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    }
+                });
+            });
+        </script>

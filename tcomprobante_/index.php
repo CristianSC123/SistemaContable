@@ -5,7 +5,6 @@
         <div class="main p-3">
         <div class="container mt-5">
             <h2 class="mb-4"> Lista de Comprobantes_</h2>
-            <a href="create.php" class="btn btn-primary mb-3">Agregar Detalle</a>
             <?php
             include_once '../cone.php';
 
@@ -13,14 +12,13 @@
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
-                echo "<table class='table table-striped table-bordered'>
+                echo "<table id='tcomprobante_' class='table table-striped table-bordered'>
                 <thead class='table-dark'>
                 <tr>
                     <th>ID Comprobante</th>
                     <th>Código Comprobante</th>
                     <th>Código Cuenta</th>
                     <th>Glosa Detallada</th>
-                    <th>Documento</th>
                     <th>Debe ML</th>
                     <th>Haber ML</th>
                     <th>Acciones</th>
@@ -55,3 +53,12 @@
     <?php 
     include_once("../plantilla/final.php");
 ?>
+<script>
+    $(document).ready(function() {
+        $('#tcomprobante_').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json" 
+            }
+        });
+    });
+</script>

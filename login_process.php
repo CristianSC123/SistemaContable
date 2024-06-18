@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             $_SESSION['idusuario'] = $row['idusuario'];
             $_SESSION['nombre'] = $row['nombre'];
-            header("Location: ./tcuentas/index.php");
+            header("Location: ./tempresa/index.php");
         } else {
             echo "<script>alert('Contraseña incorrecta'); window.location='index.php';</script>";
         }

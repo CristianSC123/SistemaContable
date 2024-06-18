@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar With Bootstrap</title>
+    <title>Título de tu página</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
         .treeview-menu {
@@ -49,24 +51,23 @@
     </style>
 </head>
 
-
 <body>
     <div class="wrapper">
         <aside id="sidebar">
             <div class="d-flex">
-            <button class="toggle-btn" type="button">
-    <img src="../img/logo.png" alt="" width="70" height="50">
-</button>
+                <button class="toggle-btn" type="button">
+                    <img src="../img/logo.png" alt="" width="70" height="50">
+                </button>
                 <div class="sidebar-logo">
                     <a href="">Bienvenido</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                <a href="../tcomprobante/index.php" class="sidebar-link">
-                <i class="lni lni-files"></i>
-                <span>Comprobante</span>
-                </a>
+                    <a href="../tcomprobante/index.php" class="sidebar-link">
+                        <i class="lni lni-files"></i>
+                        <span>Comprobante</span>
+                    </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="../tcomprobante_/index.php" class="sidebar-link">
@@ -91,7 +92,7 @@
                         <i class="lni lni-users"></i>
                         <span>Usuario</span>
                     </a>
-                </li>   
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link">
                         <i class="lni lni-stats-up"></i>
@@ -101,7 +102,9 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="../Reportes/rCuentas.php"><i class="lni lni-book"></i> Cuentas</a></li>
                         <li><a href="../Reportes/rDiario.php"><i class="lni lni-book"></i> Libro Diario</a></li>
+                        <li><a href="../Reportes/rComprobantes.php"><i class="lni lni-book"></i> Comprobantes</a></li>
                         <li><a href="../Reportes/rMayor.php"><i class="lni lni-book"></i> Libro Mayor</a></li>
                         <li><a href="../Reportes/rBSS.php"><i class="lni lni-calculator"></i> Balance de Sumas y Saldos</a></li>
                         <li><a href="../Reportes/rBG.php"><i class="lni lni-bar-chart"></i> Balance General</a></li>
@@ -115,7 +118,6 @@
                     <span>Logout</span>
                 </a>
             </div>
-           
         </aside>
         <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -141,5 +143,4 @@
                 });
             });
         });
-    </script>
-    
+        </script>

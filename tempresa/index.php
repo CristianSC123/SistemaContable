@@ -1,70 +1,92 @@
 <?php 
     include_once("../plantilla/inicio.php");
     include '../cone.php';
-    
 ?>
-        <div class="main p-3">
-            <div class="text-center">
-            <h2 class="mb-4">Lista de Empresa</h2>
-            <a href="create.php" class="btn btn-primary mb-3">Agregar Empresa</a>
-            <?php                
-                $sql = "SELECT * FROM tempresa";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    echo "<table class='table table-striped table-bordered'>
-                    <thead class='table-dark'>
-                    <tr>
-                        <th>ID Empresa</th>
-                        <th>NIT</th>
-                        <th>Nombre de la Empresa</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Representante</th>
-                        <th>Año</th>
-                        <th>Tipo de Empresa</th>
-                        <th>Fecha de Inicio</th>
-                        <th>Fecha de Fin</th>
-                        <th>Sucursal NR</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>                        
-                    </tr>
-                    </thead>
-                    <tbody>";
-
-                    // Salida de los datos de cada fila
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                        <td>" . $row["idempresa"]. "</td>
-                        <td>" . $row["nit"]. "</td>
-                        <td>" . $row["nombreempresa"]. "</td>
-                        <td>" . $row["direccion"]. "</td>
-                        <td>" . $row["telefono"]. "</td>
-                        <td>" . $row["representante"]. "</td>
-                        <td>" . $row["anio"]. "</td>
-                        <td>" . $row["tipoempresa"]. "</td>
-                        <td>" . $row["fechai"]. "</td>
-                        <td>" . $row["fechaf"]. "</td>
-                        <td>" . $row["sucursalnr"]. "</td>
-                        <td>
-                            <a href='update.php?id=".$row["idempresa"]."' class='btn btn-warning btn-sm'>Editar</a>
-                        </td>
-                        <td>
-                            <a href='delete.php?id=".$row["idempresa"]."' class='btn btn-danger btn-sm'>Eliminar</a>
-                        </td>
-
-                        </tr>";
-                    }
-                    echo "</tbody></table>";
-                } else {
-                    echo "<div class='alert alert-warning' role='alert'>0 resultados</div>";
-                }
-
-                // Cerrar la conexión
-                $conn->close();
-                ?>
-            </div>
-        </div>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+    }
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    .container {
+        max-width: 800px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .container h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .container p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #666;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .container img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .container ul {
+        padding: 0;
+        margin: 0;
+    }
+    .container ul li {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        color: #555;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .container ul li strong {
+        font-weight: bold;
+        width: 40%;
+    }
+    .container .copyright {
+        text-align: right;
+        color: #888;
+        margin-top: 20px;
+        font-size: 0.9rem;
+    }
+</style>
+<div class="main">
+    <div class="container">
+        <h2>Qué Somos?</h2>
+        <p>Aplicación contable para estudiantes y pequeñas empresas</p>
+        <img src="../img/logo.png" alt="Logo" style="width: 200px; height: auto;">
+        <section id="acerca-de" class="mb-4">
+            <ul>
+                <li><strong>Aplicación:</strong> Contable</li>
+                <li><strong>Versión:</strong> 01.01.01 de 01/01/2024</li>
+                <li><strong>Diseñado por:</strong> Juan Manuel Apaza Quispe</li>
+                <li><strong>Objetivo:</strong> Aplicación contable para estudiantes y pequeñas empresas</li>
+                <li><strong>Alcance:</strong> Desde el registro de comprobantes hasta sacar reportes de libro diario, libro mayor y etc</li>
+                <li><strong>Docente:</strong> Pablo Deyby Canaviri Maydana</li>
+                <li><strong>Celular docente:</strong> 72017756</li>
+                <li><strong>Estudiante:</strong> Juan Manuel Apaza Quispe</li>
+                <li><strong>Celular:</strong> 76592008</li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; ContaJuaN</p>
     </div>
-    <?php 
+</div>
+<?php 
     include_once("../plantilla/final.php");
 ?>

@@ -51,11 +51,7 @@ class PDF extends FPDF
 
 require_once "../cone.php";
 
-$consulta_mayor = "SELECT tcomprobantes.idcomprobante, tcomprobantes.fecha, tcomprobantes.codtipocomprobante, tcomprobantes.nocomprobante, tcomprobantes.tc, tcomprobantes.senior, tcomprobantes.glosag, tcomprobantes_.codcta, tcuentas.nombrecuenta, tcomprobantes_.glosad, tcomprobantes_.debeml, tcomprobantes_.haberml 
-FROM tcuentas 
-INNER JOIN (tcomprobantes INNER JOIN tcomprobantes_ ON tcomprobantes.idcomprobante = tcomprobantes_.codcomprobante) 
-ON tcuentas.codigo = tcomprobantes_.codcta 
-ORDER BY tcomprobantes.codtipocomprobante";
+$consulta_mayor = "SELECT * FROM cdiario";
 
 $resultado = $conn->query($consulta_mayor);
 
@@ -93,16 +89,16 @@ foreach ($tipos as $idcomprobante => $rows) {
     foreach ($rows as $row) {
         $pdf->Cell(40, 10, $row['codcta'], 1, 0, 'C');
         $pdf->Cell(60, 10, $row['nombrecuenta'], 1, 0, 'C');
-        $pdf->Cell(30, 10, number_format($row['debeml'], 2, ',', '.'), 1, 0, 'R');
-        $pdf->Cell(30, 10, number_format($row['haberml'], 2, ',', '.'), 1, 1, 'R');
+        $pdf->Cell(30, 10, number_format($row['debeml'], 2, ',', '.'), 1, 0, 'C');
+        $pdf->Cell(30, 10, number_format($row['haberml'], 2, ',', '.'), 1, 1, 'C');
         $totalDebe += $row['debeml'];
         $totalHaber += $row['haberml'];
     }
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(100, 10, 'TOTAL', 1, 0, 'R');
-    $pdf->Cell(30, 10, number_format($totalDebe, 2, ',', '.'), 1, 0, 'R');
-    $pdf->Cell(30, 10, number_format($totalHaber, 2, ',', '.'), 1, 1, 'R');
+    $pdf->Cell(30, 10, number_format($totalDebe, 2, ',', '.'), 1, 0, 'C');
+    $pdf->Cell(30, 10, number_format($totalHaber, 2, ',', '.'), 1, 1, 'C');
     $pdf->Ln(10);
 }
 

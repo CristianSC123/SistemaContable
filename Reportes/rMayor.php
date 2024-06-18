@@ -36,7 +36,7 @@ $resultado = $conn->query($consulta_mayor);
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 12);
+$pdf->SetFont('Arial', '', 12);
 
 $cuentaactual = '';
 $counter = 0;
@@ -51,11 +51,13 @@ while ($row = $resultado->fetch_assoc()) {
         }
         
         $cuentaactual = $row['codcta'];
+        $pdf->SetFont('Arial', 'b', 12);
         $pdf->Cell(0, 10, 'Nombre Cuenta: ' . $row['nombrecuenta'], 0, 1);
         $pdf->Cell(0, 10, utf8_decode('Código de Cuenta: ') . $row['codcta'], 0, 1);
         //$pdf->Ln();
+        $pdf->SetFont('Arial', 'b', 12);
         $pdf->Cell(30, 10, 'Fecha', 1, 0, 'C');
-        $pdf->Cell(20, 10, 'Tipo', 1, 0, 'C'); 
+        $pdf->Cell(30, 10, 'Tipo', 1, 0, 'C'); 
         $pdf->Cell(15, 10, 'No', 1, 0, 'C');
         $pdf->Cell(15, 10, 'TC', 1, 0, 'C');
         $pdf->Cell(25, 10, 'Debe', 1, 0, 'C');
@@ -64,14 +66,15 @@ while ($row = $resultado->fetch_assoc()) {
         $pdf->Ln();
         
     }
+    $pdf->SetFont('Arial', '', 12);
 
     $pdf->Cell(30, 10, $row['fecha'], 1, 0, 'C');
-    $pdf->Cell(20, 10, $row['codtipocomprobante'], 1, 0, 'C'); 
+    $pdf->Cell(30, 10, $row['codtipocomprobante'], 1, 0, 'C'); 
     $pdf->Cell(15, 10, $row['nocomprobante'], 1, 0, 'C');
     $pdf->Cell(15, 10, $row['tc'], 1, 0, 'C');
-    $pdf->Cell(25, 10, number_format($row['debeml'], 2, ',', '.'), 1, 0, 'R');
-    $pdf->Cell(25, 10, number_format($row['haberml'], 2, ',', '.'), 1, 0, 'R');
-    $pdf->Cell(25, 10, number_format($row['saldoml'], 2, ',', '.'), 1, 0, 'R');
+    $pdf->Cell(25, 10, number_format($row['debeml'], 2, ',', '.'), 1, 0, 'C');
+    $pdf->Cell(25, 10, number_format($row['haberml'], 2, ',', '.'), 1, 0, 'C');
+    $pdf->Cell(25, 10, number_format($row['saldoml'], 2, ',', '.'), 1, 0, 'C');
     $pdf->Ln();
 }
 
