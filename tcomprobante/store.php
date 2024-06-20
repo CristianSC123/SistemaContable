@@ -10,8 +10,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $glosag = $_POST['glosag'];
     $estadoasiento = $_POST['estadoasiento'];
 
-    $sql = "INSERT INTO tcomprobantes (codtipocomprobante, nocomprobante, fecha, tc, senior, glosag, estadoasiento)
-            VALUES ('$codtipocomprobante', '$nocomprobante', '$fecha', '$tc', '$senior', '$glosag', '$estadoasiento')";
+    $baseDir = 'respaldo/';
+
+    // Ruta específica para el comprobante
+    $comprobanteDir = $baseDir . $nocomprobante;
+
+    // Crear directorio si no existe
+    if (!file_exists($comprobanteDir)) {
+        mkdir($comprobanteDir, 0777, true);
+    }
+
+    // Array para guardar rutas de archivos subidos
+    $rutaArchivos = [];
+
+    // Manejo de archivos subidos
+    if (!empty($_FILES['documentos']['name'][0])) {
+        for ($i = 0; $i < count($_FILES['documentos']['name']); $i++) {
+            $fileName = $_FILES['documentos']['name'][$i];
+            $fileTmpName = $_FILES['documentos']['tmp_name'][$i];
+            $fileType = $_FILES['documentos']['type'][$i];
+            $fileError = $_FILES['documentos']['error'][$i];
+            $fileSize = $_FILES['documentos']['size'][$i];
+
+            // Validar tipo de archivo
+            $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            $allowed = ['jpg', 'jpeg'];
+
+            if (in_array($fileExt, $allowed)) {
+                if ($fileError === 0) {
+                    $newFileName = uniqid('', true) . "." . $fileExt;
+                    $fileDestination = $comprobanteDir . '/' . $newFileName;
+
+                    if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                        $rutaArchivos[] = $fileDestination;
+                    } else {
+                        echo "<script>alert('Error al mover el archivo $fileName'); window.location='create.php';</script>";
+                        exit();
+                    }
+                } else {
+                    echo "<script>alert('Error en el archivo $fileName: $fileError'); window.location='create.php';</script>";
+                    exit();
+                }
+            } else {
+                echo "<script>alert('Tipo de archivo no permitido: $fileName'); window.location='create.php';</script>";
+                exit();
+            }
+        }
+    }
+    $rutaArchivosString = implode(',', $rutaArchivos);
+    $sql = "INSERT INTO tcomprobantes (codtipocomprobante, nocomprobante, fecha, tc, senior, glosag, estadoasiento, ruta)
+            VALUES ('$codtipocomprobante', '$nocomprobante', '$fecha', '$tc', '$senior', '$glosag', '$estadoasiento', '$rutaArchivosString')";
 
     if ($conn->query($sql) === TRUE) {
         $id_comprobante = $conn->insert_id;
@@ -46,3 +94,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $conn->close();
 }
+?>

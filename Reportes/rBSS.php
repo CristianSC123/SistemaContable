@@ -32,7 +32,7 @@ class PDF extends FPDF
 
     function Header()
     {
-        $this->Image('../img/logo.png',10,8,33);
+        $this->Image('../img/logo.jpg',10,0,33);
         $this->SetFont('Arial', 'B', 18);
         $this->Cell(0, 10, 'Informe de Balance de Sumas y saldos', 0, 1, 'C');
         $this->SetFont('Arial', '', 10);

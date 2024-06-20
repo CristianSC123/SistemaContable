@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión · ContaJuan</title>
+    <title>Iniciar Sesión · BalancePerfecto</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
@@ -84,10 +84,8 @@
 <body class="text-center">
     <main class="form-signin">
         <div class="logo-text">
-        <span>C</span>ontaJua<span>N</span>
+        <span>BalancePerfecto</span>
         </div>
-
-
         <div id="signin-form">
             <form method="post" action="login_process.php">
                 <div class="form-floating mb-3">
@@ -100,9 +98,7 @@
                 </div>
 
                 <div class="btn-group">
-                <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
-                    <button class="btn btn-secondary" type="button" onclick="showRegisterForm()">Registrar</button>
-                    
+                <button class="btn btn-primary" type="submit">Iniciar Sesión</button>          
                 </div>
             </form>
         </div>
@@ -126,25 +122,8 @@
                     <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirmar Contraseña" name="confirmar_password" required>
                     <label for="floatingConfirmPassword">Confirmar Contraseña</label>
                 </div>
-
-                <div class="btn-group">
-                    <button class="btn btn-secondary" type="button" onclick="showSignInForm()">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Registrar</button>
-                </div>
             </form>
         </div>
     </main>
-
-    <script>
-        function showRegisterForm() {
-            document.getElementById('signin-form').classList.add('hidden');
-            document.getElementById('register-form').classList.remove('hidden');
-        }
-
-        function showSignInForm() {
-            document.getElementById('register-form').classList.add('hidden');
-            document.getElementById('signin-form').classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>

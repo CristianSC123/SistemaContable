@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título de tu página</title>
+    <title>BalancePerfecto</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -56,10 +56,10 @@
         <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
-                    <img src="../img/logo.png" alt="" width="70" height="50">
+                    <img src="../img/logo.jpg" alt="" width="70" height="50">
                 </button>
                 <div class="sidebar-logo">
-                    <a href="">Bienvenido</a>
+                    <a href="">¡Hola!</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -93,6 +93,14 @@
                         <span>Usuario</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item">
+                    <a href="../acerca/index.php" class="sidebar-link">
+                        <i class="lni lni-users"></i>
+                        <span>Acerca de...</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link">
                         <i class="lni lni-stats-up"></i>
@@ -115,7 +123,7 @@
             <div class="sidebar-footer">
                 <a href="../index.php" class="sidebar-link">
                     <i class="lni lni-exit"></i>
-                    <span>Logout</span>
+                    <span>Cerrar Sesion</span>
                 </a>
             </div>
         </aside>

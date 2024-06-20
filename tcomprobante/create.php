@@ -5,6 +5,7 @@ include_once('../cone.php');
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +15,18 @@ include_once('../cone.php');
         .main {
             padding: 20px;
         }
+
         .form-label {
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="main p-3">
         <div class="container mt-5">
             <h2 class="mb-4">Crear Comprobante</h2>
-            <form method="post" action="store.php">
+            <form method="post" action="store.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="codtipocomprobante" class="form-label">Tipo de Comprobante:</label>
@@ -59,13 +62,17 @@ include_once('../cone.php');
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="estadoasiento" class="form-label">Estado Asiento:</label>
-                        <input type="text" class="form-control" id="estadoasiento" name="estadoasiento" required>
+                        <input type="text" class="form-control" id="estadoasiento" name="estadoasiento" enctype="multipart/form-data" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="documentos" class="form-label">Documentos Adjuntos (JPG, JPEG):</label>
+                        <input type="file" class="form-control" id="documentos" name="documentos[]" accept=".jpg, .jpeg" multiple>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="detalle" class="form-label">Agregar cuentas:</label>
-                    <table  class="table table-bordered">
-                        <thead class='table-dark'>
+                    <table class="table table-bordered">
+                        <thead class='table-primary'>
                             <tr>
                                 <th>#</th>
                                 <th>Cuenta</th>
@@ -181,6 +188,7 @@ include_once('../cone.php');
         });
     </script>
 </body>
+
 </html>
 
 <?php

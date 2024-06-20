@@ -13,7 +13,7 @@
 
             if ($result->num_rows > 0) {
                 echo "<table id='tcomprobante_' class='table table-striped table-bordered'>
-                <thead class='table-dark'>
+                <thead class='table-primary'>
                 <tr>
                     <th>ID Comprobante</th>
                     <th>Código Comprobante</th>

@@ -3,126 +3,141 @@ require('../fpdf186/fpdf.php');
 
 class PDF extends FPDF
 {
-    function setHeaderData($data)
-    {
-        $this->headerData = $data;
-    }
+    private $ingresosTotal;
+    private $egresosTotal;
+    private $cuentasEgreso;
 
     function Header()
     {
-        $this->Image('../img/logo.png',10,8,33);
-        $this->SetFont('Arial', 'B', 18);
+        $this->Image('../img/logo.jpg', 10, 6, 30);
+        $this->SetFont('Arial', 'B', 15);
         $this->Cell(0, 10, 'Estado de Resultados', 0, 1, 'C');
-        $this->SetFont('Arial', '', 10);
-
+        $this->SetFont('Arial', '', 12);
+        $this->Cell(0, 10, 'Fecha Inicio: 02/05/24   Fecha Fin: 02/05/24', 0, 1, 'C');
         $this->Ln(10);
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell(30, 10, 'Codigo', 1, 0, 'C');
-        $this->Cell(80, 10, 'Nombre Cuenta', 1, 0, 'C');
-        $this->Cell(40, 10, 'Debe', 1, 0, 'C');
-        $this->Cell(40, 10, 'Haber', 1, 1, 'C');
     }
 
     function Footer()
     {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, utf8_decode('Página ') . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, date('Y-m-d H:i:s'), 0, 0, 'L');
     }
 
-    function TotalsTable($Ingreso, $Egreso, $ER)
+    function EstadoResultados($ingresosOperativos, $ingresosNoOperativos, $egresosOperativos, $egresosNoOperativos, $resultado)
     {
+        $this->SetFont('Arial', '', 12);
+
+        // Cabecera de la tabla
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(0, 10, 'Ingresos', 0, 1);
+
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(0, 10, 'Ingresos Operativos', 0, 1);
+        foreach ($ingresosOperativos as $key => $value) {
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(100, 10, $key, 0);
+            $this->Cell(30, 10, number_format($value, 2), 0, 1, 'R');
+        }
+        $this->Cell(100, 10, 'Total Ingresos Operativos', 1);
+        $this->Cell(30, 10, number_format(array_sum($ingresosOperativos), 2), 1, 1, 'R');
+
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(0, 10, 'Ingresos No Operativos', 0, 1);
+        foreach ($ingresosNoOperativos as $key => $value) {
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(100, 10, $key, 0);
+            $this->Cell(30, 10, number_format($value, 2), 0, 1, 'R');
+        }
+        $this->Cell(100, 10, 'Total Ingresos No Operativos', 1);
+        $this->Cell(30, 10, number_format(array_sum($ingresosNoOperativos), 2), 1, 1, 'R');
+
+        $totalIngresos = array_sum($ingresosOperativos) + array_sum($ingresosNoOperativos);
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(100, 10, 'Total Ingresos', 1);
+        $this->Cell(30, 10, number_format($totalIngresos, 2), 1, 1, 'R');
+
+        $this->Ln(5);
+
+        $this->Cell(0, 10, 'Egresos', 0, 1);
+
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(0, 10, 'Egresos Operativos', 0, 1);
+        foreach ($egresosOperativos as $key => $value) {
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(100, 10, $key, 0);
+            $this->Cell(30, 10, number_format($value, 2), 0, 1, 'R');
+        }
+        $this->Cell(100, 10, 'Total Egresos Operativos', 1);
+        $this->Cell(30, 10, number_format(array_sum($egresosOperativos), 2), 1, 1, 'R');
+
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(0, 10, 'Egresos No Operativos', 0, 1);
+        foreach ($egresosNoOperativos as $key => $value) {
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(100, 10, $key, 0);
+            $this->Cell(30, 10, number_format($value, 2), 0, 1, 'R');
+        }
+        $this->Cell(100, 10, 'Total Egresos No Operativos', 1);
+        $this->Cell(30, 10, number_format(array_sum($egresosNoOperativos), 2), 1, 1, 'R');
+
+        $totalEgresos = array_sum($egresosOperativos) + array_sum($egresosNoOperativos);
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(100, 10, 'Total Egresos', 1);
+        $this->Cell(30, 10, number_format($totalEgresos, 2), 1, 1, 'R');
+
         $this->Ln(10);
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell(110, 10, 'Total Ingresos', 1, 0, 'R');
-        $this->Cell(50, 10, number_format($Ingreso, 2, ',', '.'), 1, 1, 'R');
-        $this->Cell(110, 10, 'Total Egresos', 1, 0, 'R');
-        $this->Cell(50, 10, number_format($Egreso, 2, ',', '.'), 1, 1, 'R');
-        $this->Cell(110, 10, 'Resultado del Ejercicio', 1, 0, 'R');
-        $this->Cell(50, 10, number_format($ER, 2, ',', '.'), 1, 1, 'R');
+        $this->SetFont('Arial', 'B', 12);
+        if ($resultado < 0) {
+            $this->Cell(0, 10, 'Pérdida Neta', 0, 1, 'C');
+        } else {
+            $this->Cell(0, 10, 'Utilidad Neta', 0, 1, 'C');
+        }
+        $this->Cell(100, 10, 'Resultado Neto', 1);
+        $this->Cell(30, 10, number_format($resultado, 2), 1, 1, 'R');
     }
 }
 
 require_once "../cone.php";
+$sql = "SELECT tcuentas.codigo AS cod1, tcuentas.nombrecuenta, SUM( IF(LEFT(tcuentas.codigo, 1) = 1 OR LEFT(tcuentas.codigo, 1) = 5, tcomprobantes_.DebeML - tcomprobantes_.HaberML, tcomprobantes_.HaberML - tcomprobantes_.DebeML ) ) AS SumaDeSaldoEF, tcuentas.Nivel FROM tcuentas INNER JOIN tcomprobantes_ ON tcuentas.Codigo = tcomprobantes_.codcta WHERE tcuentas.Codigo BETWEEN 40000000 AND 59999999 GROUP BY tcuentas.Codigo, tcuentas.NombreCuenta, tcuentas.Nivel";
 
-try {
-    $query = "
-        SELECT 
-            tcuentas.codigo, 
-            tcuentas.nombrecuenta, 
-            SUM(tcomprobantes_.debeml) AS debe, 
-            SUM(tcomprobantes_.haberml) AS haber
-        FROM 
-            tcomprobantes_
-        JOIN 
-            tcuentas ON tcomprobantes_.codcta = tcuentas.codigo
-        GROUP BY 
-            tcuentas.codigo, tcuentas.nombrecuenta
-    ";
+$result = $conn->query($sql);
 
-    $resultado = $conn->query($query);
-    $balances = $resultado->fetch_all(MYSQLI_ASSOC);
+$ingresosOperativos = array();
+$egresosOperativos = array();
+$egresosNoOperativos = array();
+$ingresosNoOperativos = array();
 
-    $totalDeudor = 0;
-    $totalAcreedor = 0;
-    $Activo = 0;
-    $Ingreso = 0;
-    $Egreso = 0;
-    $GastosO = 0;
-    $GastosA = 0;
-    $GastosC = 0;
-    $GastosF = 0;
-    $OtrosE = 0;
-    $Monto = 0;
-    $ER = 0;
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $nombreCuenta = $row['nombrecuenta'];
+        $saldo = floatval($row['SumaDeSaldoEF']);
+        $codigo = $row['cod1'];
 
-    foreach ($balances as $balance) {
-        if ($balance['debe'] > $balance['haber']) {
-            $totalDeudor += $balance['debe'] - $balance['haber'];
-        } else {
-            $totalAcreedor += $balance['haber'] - $balance['debe'];
-        }
 
-        if ($balance['codigo'] > 41101001 && $balance['codigo'] < 51101001) {
-            $Monto = abs($balance['debe'] - $balance['haber']);
-            $Ingreso += $Monto;
-        } elseif ($balance['codigo'] > 50000000) {
-            $Monto = abs($balance['debe'] - $balance['haber']);
-            if ($balance['codigo'] > 50000000 && $balance['codigo'] < 51101002) {
-                $GastosO += $Monto;
-            } elseif ($balance['codigo'] > 51101001 && $balance['codigo'] < 51300000) {
-                $GastosA += $Monto;
-            } elseif ($balance['codigo'] > 51300000 && $balance['codigo'] < 51400000) {
-                $GastosC += $Monto;
-            } elseif ($balance['codigo'] > 51400000 && $balance['codigo'] < 51500000) {
-                $GastosF += $Monto;
-            } elseif ($balance['codigo'] > 51500000) {
-                $OtrosE += $Monto;
-            }
+        if ($codigo >= 40000000 && $codigo < 41000000) {
+            $ingresosOperativos[$nombreCuenta] = $saldo;
+        } elseif ($codigo >= 41000000 && $codigo < 50000000) { 
+            $ingresosOperativos[$nombreCuenta] = $saldo;
+        } elseif ($codigo >= 51000000 && $codigo < 52000000) {
+            $egresosOperativos[$nombreCuenta] = $saldo;
+        } elseif ($codigo >= 52000000 && $codigo < 53000000) {
+            $egresosNoOperativos[$nombreCuenta] = $saldo;
         }
     }
-
-    $Egreso = $GastosO + $GastosA + $GastosC + $GastosF + $OtrosE;
-    $ER = $Ingreso - $Egreso;
-
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
 }
+
+
+$totalIngresos = array_sum($ingresosOperativos) + array_sum($ingresosNoOperativos);
+$totalEgresos = array_sum($egresosOperativos) + array_sum($egresosNoOperativos);
+$resultado = $totalIngresos - $totalEgresos;
 
 $pdf = new PDF();
-$pdf->AliasNbPages();
 $pdf->AddPage();
+$pdf->SetFont('Arial', '', 12);
 
-$pdf->SetFont('Arial', '', 10);
+$pdf->EstadoResultados($ingresosOperativos, $ingresosNoOperativos, $egresosOperativos, $egresosNoOperativos, $resultado);
 
-foreach ($balances as $row) {
-    $pdf->Cell(30, 10, $row['codigo'], 1, 0, 'C');
-    $pdf->Cell(80, 10, utf8_decode($row['nombrecuenta']), 1, 0, 'C');
-    $pdf->Cell(40, 10, number_format($row['debe'], 2, ',', '.'), 1, 0, 'C');
-    $pdf->Cell(40, 10, number_format($row['haber'], 2, ',', '.'), 1, 1, 'C');
-}
+$pdf->Output();
 
-$pdf->TotalsTable($Ingreso, $Egreso, $ER);
-
-$pdf->Output('I', 'EstadoResultados.pdf');
-?>
+$conn->close();

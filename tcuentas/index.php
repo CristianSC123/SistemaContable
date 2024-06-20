@@ -14,7 +14,7 @@
 
     if ($result->num_rows > 0) {
         echo "<table id='cuentas' class='table table-striped table-bordered  table-responsive' >
-        <thead class='table-dark'>
+        <thead class='table-primary'>
         <tr>
             <th>Código</th>
             <th>Nombre de Cuenta</th>

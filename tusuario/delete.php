@@ -2,7 +2,7 @@
 if (isset($_GET['id'])) {
     include_once '../cone.php';
 
-    $idempresa = $_GET['id'];
+    $idusuario = $_GET['id'];
 
     // Intentar eliminar el registro
     $sql = "DELETE FROM tusuario WHERE idusuario=$idusuario";

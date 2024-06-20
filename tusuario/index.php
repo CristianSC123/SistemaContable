@@ -12,7 +12,7 @@
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     echo "<table id='usuario' class='table table-striped table-bordered'>
-                    <thead class='table-dark'>
+                    <thead class='table-primary'>
                     <tr>
                         <th>ID usuario</th>
                         <th>Nombre </th>
