@@ -33,15 +33,15 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <style>
         .carousel-item img {
-            max-height: 500px; /* Ajusta este valor según tus necesidades */
-            object-fit: contain; /* Asegura que la imagen se ajuste bien dentro del contenedor */
+            max-height: 500px; 
+            object-fit: contain; 
             margin: auto;
-            transition: transform 0.2s; /* Añade una transición suave */
-            cursor: zoom-in; /* Cambia el cursor a una lupa */
+            transition: transform 0.2s; 
+            cursor: zoom-in; 
         }
 
         .carousel-item img:hover {
-            transform: scale(1.1); /* Aplica el efecto de zoom al pasar el cursor */
+            transform: scale(1.1);
         }
     </style>
 </head>
